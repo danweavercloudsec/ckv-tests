@@ -1,19 +1,22 @@
 resource "aws_iam_policy" "policy_pass" {
-  name        = "policy_pass"
-  path        = "/"
+  name = "policy_pass"
+  path = "/"
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-        "Action": "s3:*",
-        "Effect": "Allow",
-        "Resource": "*"
-        }
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Action" : "s3:*",
+        "Effect" : "Allow",
+        "Resource" : "*"
+      }
     ]
   })
+  tags = {
+    yor_trace = "8667166b-38b3-40a7-990c-c37a8e59ec9d"
+  }
 }
 
 # Test standard IAM Policy - fail
@@ -25,15 +28,18 @@ resource "aws_iam_policy" "policy_fail" {
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-        "Action": "iam:*",
-        "Effect": "Allow",
-        "Resource": "*"
-        }
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Action" : "iam:*",
+        "Effect" : "Allow",
+        "Resource" : "*"
+      }
     ]
   })
+  tags = {
+    yor_trace = "a54b8f59-fd9a-439e-bd7f-1cb1b93f25a8"
+  }
 }
 
 # Test standard IAM Policy with a Deny - pass
@@ -45,15 +51,18 @@ resource "aws_iam_policy" "policy_pass2" {
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-        "Action": "iam:*",
-        "Effect": "Deny",
-        "Resource": "*"
-        }
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Action" : "iam:*",
+        "Effect" : "Deny",
+        "Resource" : "*"
+      }
     ]
   })
+  tags = {
+    yor_trace = "d8ee7dba-9e7a-47fa-870e-f8c394c3371f"
+  }
 }
 
 # Test standard IAM Policy with a heredoc - fail
@@ -74,6 +83,9 @@ resource "aws_iam_policy" "policy_fail2" {
     ]
   }
 POLICY
+  tags = {
+    yor_trace = "71af7c07-e379-4d5e-a479-90206ab0864d"
+  }
 }
 
 # Test standard IAM Policy with mutiple actions - fail
@@ -85,18 +97,21 @@ resource "aws_iam_policy" "policy_mutiple_actions_fail" {
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-        "Action": [
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Action" : [
           "iam:*",
           "s3*"
         ]
-        "Effect": "Allow",
-        "Resource": "*"
-        }
+        "Effect" : "Allow",
+        "Resource" : "*"
+      }
     ]
   })
+  tags = {
+    yor_trace = "fcfce942-9077-45ea-a770-83b261c7a69d"
+  }
 }
 
 # Test Role Policy - pass
@@ -296,7 +311,7 @@ POLICY
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
 data "aws_iam_policy_document" "pass1" {
   statement {
-    sid = "1"
+    sid    = "1"
     effect = "Allow"
     actions = [
       "s3:ListAllMyBuckets",
@@ -361,7 +376,7 @@ data "aws_iam_policy_document" "pass2" {
 # Test IAM Policy document data type - fail
 data "aws_iam_policy_document" "fail1" {
   statement {
-    sid = "1"
+    sid    = "1"
     effect = "Allow"
     actions = [
       "s3:ListAllMyBuckets",
