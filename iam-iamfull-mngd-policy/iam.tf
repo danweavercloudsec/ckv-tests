@@ -21,23 +21,35 @@ resource "aws_iam_role" "fail3" {
   name                = "role"
   assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
   managed_policy_arns = ["arn:aws:iam::aws:policy/IAMFullAccess"]
+  tags = {
+    yor_trace = "9eb0972e-3601-4e8d-a534-6eac03fa21b1"
+  }
 }
 # Test iam role with mutiple policies including IAMFullAccess - Fail
 resource "aws_iam_role" "fail3a" {
   name                = "role"
   assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
-  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess","arn:aws:iam::aws:policy/IAMFullAccess"]
+  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess", "arn:aws:iam::aws:policy/IAMFullAccess"]
+  tags = {
+    yor_trace = "7a4f724a-26ea-4a2b-843b-dad994ea3c91"
+  }
 }
 # Test iam role with other policy - Pass
 resource "aws_iam_role" "pass3" {
   name                = "role"
   assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"]
+  tags = {
+    yor_trace = "a8a5083d-a41c-45d7-8729-18f5839707de"
+  }
 }
 # Test iam role with no managed policies - Pass
 resource "aws_iam_role" "pass3a" {
-  name                = "role"
-  assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
+  name               = "role"
+  assume_role_policy = data.aws_iam_policy_document.instance_assume_role_policy.json
+  tags = {
+    yor_trace = "672f675b-cdb7-44e0-8142-98f781150944"
+  }
 }
 
 # Test policy attachment with IAMFullAccess - Fail

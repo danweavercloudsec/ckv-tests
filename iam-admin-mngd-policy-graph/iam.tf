@@ -21,12 +21,18 @@ resource "aws_iam_role" "fail1" {
   name                = "fail1"
   assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
   managed_policy_arns = ["arn:aws:iam::aws:policy/AdministratorAccess"]
+  tags = {
+    yor_trace = "8c2a5549-24dc-4cf5-9a6d-097915bf8035"
+  }
 }
 # Test iam role with AdministratorAccess - Pass
 resource "aws_iam_role" "pass1" {
   name                = "pass1"
   assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"]
+  tags = {
+    yor_trace = "7f7128c9-8537-42a8-b5c6-e88e8e78ab7f"
+  }
 }
 
 # Test policy attachment with AdministratorAccess - Fail
